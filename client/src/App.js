@@ -1,7 +1,16 @@
+import React from 'react';
+import {Switch,Route} from 'react-router-dom';
+import {Home,Login,Register} from './pages';
 
 function App() {
   return (
-    <h1>Client Running</h1>
+    <Switch>
+      <Route exact path='/' component={Home}/>
+      <Route exact path='/login' component={Login}/>
+      <Route exact path='/register' component={Register}/>
+      
+
+    </Switch>
   );
 }
 
