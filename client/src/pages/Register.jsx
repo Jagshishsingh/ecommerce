@@ -16,18 +16,16 @@ const Register = () => {
         window.localStorage.setItem("emailForRegistration", email);
         setEmail("");
     }
-    const registerForm = () => {
-        return <form onSubmit={handleSubmit}>
-            <input type="email" className="form-control"
-                value={email} onChange={e => setEmail(e.target.value)} autoFocus />
-            <button type="submit" className="btn btn-raised"> REGISTER</button>
-        </form>
-    }
+
     return (
         <div className="container p-5">
             <div className="offset-md-3 col-md-6">
                 <p>Register</p>
-                {registerForm()}
+                <form onSubmit={handleSubmit}>
+                    <input type="email" className="form-control"
+                        value={email} onChange={e => setEmail(e.target.value)} autoFocus />
+                    <button type="submit" className="btn btn-raised"> REGISTER</button>
+                </form>
             </div>
 
         </div>
