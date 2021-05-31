@@ -5,7 +5,7 @@ import { HomeOutlined, SettingOutlined, UserOutlined, UserAddOutlined } from '@a
 import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useHistory} from 'react-router-dom';
-import {firebase} from 'firebase';
+import firebase from 'firebase';
 
 const { SubMenu, Item } = Menu;
 
