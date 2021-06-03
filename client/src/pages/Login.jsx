@@ -18,6 +18,14 @@ const Login = ({ history }) => {
         (user && user.token) && history.push('/');   
     }, [user])
 
+    const roleBasedRedirect = (res) =>{
+        if (res === 'admin'){
+            history.push('/admin/dashboard');
+        }
+        else if (res === 'subscriber'){
+            history.push('/user/history');
+        }
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,13 +48,12 @@ const Login = ({ history }) => {
                         _id : res.data._id
                     }
                 });
+                roleBasedRedirect(res);
             }).catch(error=>{
                 console.log(error);
             });
 
-            
-            history.push('/');
-
+        
         }
         catch (error) {
             console.log(error);
@@ -78,10 +85,10 @@ const Login = ({ history }) => {
                             _id : res.data._id
                         }
                     });
+                    roleBasedRedirect(res);
                 }).catch(error=>{
                     console.log(error);
                 });
-            history.push('/');
         }
         catch (error) {
             console.log(error);
