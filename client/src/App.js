@@ -9,6 +9,8 @@ import Header from './components/nav/Header';
 import {auth} from './firebase';
 import ForgotPassword from './pages/ForgotPassword';
 import { currentUser } from './functions/auth';
+import UserRoute from './components/routes/UserRoute';
+import HIstory from './pages/user/HIstory';
 
 function App() {
 
@@ -51,6 +53,7 @@ function App() {
         <Route exact path='/register' component={Register} />
         <Route exact path='/register/complete' component={RegisterComplete} />
         <Route exact path='/forgot/password' component={ForgotPassword} />
+        <UserRoute exact path='/user/history'component = {HIstory}/>
       </Switch>
     </>
   );
