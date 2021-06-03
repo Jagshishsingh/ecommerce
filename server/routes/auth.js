@@ -2,11 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const authCheck = require('../middlewares/auth');
+const {createOrUpdateUser, currentUser} = require('../controllers/user');
 
-router.get("/create-or-update-user", (req, res) => {
-  res.json({
-    data: "hey you hit create-or-update-user API endpoint",
-  });
-});
+router.post("/create-or-update-user", authCheck,createOrUpdateUser);
+router.post("/current-user", authCheck,currentUser);
 
 module.exports = router;

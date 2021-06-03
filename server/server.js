@@ -25,8 +25,6 @@ app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "2mb" }));
 app.use(cors());
 
-app.use('/api',authRoutes);
-
 readdirSync('./routes')
 .map((route) => app.use('/api',(require(`./routes/${route}`))));
 
