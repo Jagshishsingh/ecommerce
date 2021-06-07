@@ -9,7 +9,7 @@ import {
   getCategories,
   removeCategory,
 } from "../../../functions/category";
-import {CategoryForm} from '../../../forms';
+import { CategoryForm } from '../../../forms';
 
 
 const CategoryCreate = () => {
@@ -18,6 +18,7 @@ const CategoryCreate = () => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [keyword, setKeyword] = useState('')
 
   useEffect(() => {
     loadCategories();
@@ -62,6 +63,14 @@ const CategoryCreate = () => {
     }
   };
 
+  const handleSearchChange = (e) =>{
+    e.preventDefault();
+    setKeyword(e.target.value.toLowerCase());
+
+  }
+
+  const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
+
 
   return (
     <div className="container-fluid">
@@ -75,10 +84,15 @@ const CategoryCreate = () => {
           ) : (
             <h4>Create category</h4>
           )}
-          <CategoryForm name = {name} setName = {setName} handleSubmit = {handleSubmit}/>
+          <CategoryForm name={name} setName={setName} handleSubmit={handleSubmit} />
           <hr />
 
-          {categories.map((c) => (
+
+          <input type="search" className="form-control mb-4"
+            onChange={handleSearchChange} placeholder="Filter"
+            value={keyword} />
+
+          {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
               {c.name}
               <span
