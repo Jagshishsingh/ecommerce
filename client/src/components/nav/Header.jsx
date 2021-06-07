@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Menu } from 'antd';
-import { HomeOutlined, EllipsisOutlined , UserOutlined, UserAddOutlined } from '@ant-design/icons';
+import { HomeOutlined, EllipsisOutlined, UserOutlined, UserAddOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -39,9 +39,18 @@ const Header = () => {
                 <Link to="/login">LOGIN</Link>
             </Item>)}
 
-            {user && (<SubMenu  title={user && user.email.split('@')[0]} className="float-right">
-                <Item key="setting:1">Option 1</Item>
-                <Item key="setting:2">Option 2</Item>
+            {user && (<SubMenu title={user && user.email.split('@')[0]} className="float-right">
+                {user && user.role === "subscriber" && (
+                    <Item>
+                        <Link to="/user/history">Dashboard</Link>
+                    </Item>
+                )}
+
+                {user && user.role === "admin" && (
+                    <Item>
+                        <Link to="/admin/dashboard">Dashboard</Link>
+                    </Item>
+                )}
                 <Item key="logout" onClick={logout}>Logout</Item>
             </SubMenu>)}
 
