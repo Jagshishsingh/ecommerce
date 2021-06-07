@@ -13,3 +13,11 @@ export const currentUser = async (authToken) =>{
     })
 }
 
+
+export const currentAdmin = async (authToken) =>{
+    console.log(authToken);
+    return await axios.post(`${process.env.REACT_APP_API}/current-admin`,{},{
+        headers:{authToken:authToken}
+    })
+}
+

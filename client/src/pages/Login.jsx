@@ -1,28 +1,28 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth, googleAuthProvider } from '../firebase';
 import { toast } from 'react-toastify';
 import { Button } from 'antd';
 import { LoginOutlined, GoogleOutlined } from '@ant-design/icons';
-import { useDispatch,useSelector } from 'react-redux';
-import {Link} from 'react-router-dom';
-import {createOrUpdateUser} from '../functions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { createOrUpdateUser } from '../functions/auth';
 
 const Login = ({ history }) => {
     const [email, setEmail] = useState('singhjagshish0001@gmail.com');
     const [password, setPassword] = useState('1234567');
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const {user} = useSelector((state) => ({...state}));
+    const { user } = useSelector((state) => ({ ...state }));
 
     useEffect(() => {
-        (user && user.token) && history.push('/');   
+        (user && user.token) && history.push('/');
     }, [user])
 
-    const roleBasedRedirect = (res) =>{
-        if (res === 'admin'){
+    const roleBasedRedirect = (res) => {
+        if (res === 'admin') {
             history.push('/admin/dashboard');
         }
-        else if (res === 'subscriber'){
+        else if (res === 'subscriber') {
             history.push('/user/history');
         }
     }
@@ -34,26 +34,26 @@ const Login = ({ history }) => {
             const result = await auth.signInWithEmailAndPassword(email, password);
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult();
-           
-            createOrUpdateUser(idTokenResult.token)
-            .then(res=>{
-                console.log(res);
-                dispatch({
-                    type: "LOGGED_IN_USER",
-                    payload: {
-                        name:res.data.name,
-                        email: res.data.email,
-                        token: idTokenResult.token,
-                        role:res.data.role,
-                        _id : res.data._id
-                    }
-                });
-                roleBasedRedirect(res);
-            }).catch(error=>{
-                console.log(error);
-            });
 
-        
+            createOrUpdateUser(idTokenResult.token)
+                .then(res => {
+                    console.log(res);
+                    dispatch({
+                        type: "LOGGED_IN_USER",
+                        payload: {
+                            name: res.data.name,
+                            email: res.data.email,
+                            token: idTokenResult.token,
+                            role: res.data.role,
+                            _id: res.data._id
+                        }
+                    });
+                    roleBasedRedirect(res);
+                }).catch(error => {
+                    console.log(error);
+                });
+
+
         }
         catch (error) {
             console.log(error);
@@ -71,22 +71,22 @@ const Login = ({ history }) => {
             console.log(result);
             const { user } = result;
             const idTokenResult = await user.getIdTokenResult();
-            
+
             createOrUpdateUser(idTokenResult.token)
-                .then(res=>{
+                .then(res => {
                     console.log(res);
                     dispatch({
                         type: "LOGGED_IN_USER",
                         payload: {
-                            name:res.data.name,
+                            name: res.data.name,
                             email: res.data.email,
                             token: idTokenResult.token,
-                            role:res.data.role,
-                            _id : res.data._id
+                            role: res.data.role,
+                            _id: res.data._id
                         }
                     });
                     roleBasedRedirect(res);
-                }).catch(error=>{
+                }).catch(error => {
                     console.log(error);
                 });
         }
@@ -99,7 +99,7 @@ const Login = ({ history }) => {
     return (
         <div className="container p-5">
             <div className="offset-md-3 col-md-6">
-                {loading?(<h1>Loading...</h1>):(<h1>Login</h1>)}
+                {loading ? (<h1>Loading...</h1>) : (<h1>Login</h1>)}
                 <form onSubmit={handleSubmit}>
                     <input type="email" className="form-control"
                         value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />

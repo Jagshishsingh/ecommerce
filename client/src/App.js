@@ -4,15 +4,16 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useDispatch} from 'react-redux';
 
-import { Home, Login, Register,RegisterComplete } from './pages';
+import { Home, Login, Register,RegisterComplete,ForgotPassword } from './pages';
 import Header from './components/nav/Header';
 import {auth} from './firebase';
-import ForgotPassword from './pages/ForgotPassword';
 import { currentUser } from './functions/auth';
 import UserRoute from './components/routes/UserRoute';
+import AdminRoute from './components/routes/AdminRoute';
 import History from './pages/user/HIstory';
 import Wishlist from './pages/user/Wishlist';
 import Password from './pages/user/Password';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
         <UserRoute exact path='/user/history'component = {History}/>
         <UserRoute exact path='/user/wishlist'component = {Wishlist}/>
         <UserRoute exact path='/user/password'component = {Password}/>
+        <AdminRoute exact path='/admin/dashboard'component = {AdminDashboard}/>
       </Switch>
     </>
   );
