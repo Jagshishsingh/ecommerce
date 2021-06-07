@@ -9,7 +9,7 @@ import {
   getCategories,
   removeCategory,
 } from "../../../functions/category";
-import { CategoryForm } from '../../../forms';
+import { CategoryForm , LocalSearch} from '../../../components/forms';
 
 
 const CategoryCreate = () => {
@@ -63,12 +63,6 @@ const CategoryCreate = () => {
     }
   };
 
-  const handleSearchChange = (e) =>{
-    e.preventDefault();
-    setKeyword(e.target.value.toLowerCase());
-
-  }
-
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
 
@@ -88,9 +82,7 @@ const CategoryCreate = () => {
           <hr />
 
 
-          <input type="search" className="form-control mb-4"
-            onChange={handleSearchChange} placeholder="Filter"
-            value={keyword} />
+            <LocalSearch keyword={keyword} setKeyword = {setKeyword}/>
 
           {categories.filter(searched(keyword)).map((c) => (
             <div className="alert alert-secondary" key={c._id}>
