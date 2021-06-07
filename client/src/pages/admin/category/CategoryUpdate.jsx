@@ -7,6 +7,7 @@ import {
   getCategory,
   
 } from "../../../functions/category";
+import {CategoryForm} from '../../../forms';
 
 const CategoryUpdate = ({history,match}) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -41,23 +42,7 @@ const CategoryUpdate = ({history,match}) => {
   };
 
 
-  const categoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name</label>
-        <input
-          type="text"
-          className="form-control"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
+  
 
   return (
     <div className="container-fluid">
@@ -71,7 +56,7 @@ const CategoryUpdate = ({history,match}) => {
           ) : (
             <h4>Update category</h4>
           )}
-          {categoryForm()}
+          <CategoryForm name = {name} setName = {setName} handleSubmit = {handleSubmit}/>
           <hr />
 
         </div>
