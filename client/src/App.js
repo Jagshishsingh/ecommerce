@@ -14,6 +14,7 @@ import History from './pages/user/HIstory';
 import Wishlist from './pages/user/Wishlist';
 import Password from './pages/user/Password';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import {CategoryCreate,CategoryUpdate} from "./pages/admin/category";
 
 function App() {
 
@@ -60,6 +61,8 @@ function App() {
         <UserRoute exact path='/user/wishlist'component = {Wishlist}/>
         <UserRoute exact path='/user/password'component = {Password}/>
         <AdminRoute exact path='/admin/dashboard'component = {AdminDashboard}/>
+        <AdminRoute exact path="/admin/category" component={CategoryCreate} />
+        <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
       </Switch>
     </>
   );
