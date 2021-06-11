@@ -10,12 +10,10 @@ import {auth} from './firebase';
 import { currentUser } from './functions/auth';
 import UserRoute from './components/routes/UserRoute';
 import AdminRoute from './components/routes/AdminRoute';
-import History from './pages/user/HIstory';
-import Wishlist from './pages/user/Wishlist';
-import Password from './pages/user/Password';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import {CategoryCreate,CategoryUpdate} from "./pages/admin/category";
-import {SubCreate, SubUpdate} from './pages/admin/sub';
+import {History,Wishlist,Password} from './pages/user';
+import {AdminDashboard,CategoryCreate,CategoryUpdate,SubCreate, SubUpdate,ProductCreate} from './pages/admin';
+
+
 
 function App() {
 
@@ -66,6 +64,7 @@ function App() {
         <AdminRoute exact path="/admin/category/:slug" component={CategoryUpdate} />
         <AdminRoute exact path="/admin/sub" component={SubCreate} />
         <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
+        {/* <AdminRoute exact path="/admin/product" component={ProductCreate} /> */}
       </Switch>
     </>
   );
