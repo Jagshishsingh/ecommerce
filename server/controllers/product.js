@@ -12,3 +12,7 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.read = async (req,res) => {
+  const data = await Product.find({});
+  res.json(data);
+}
