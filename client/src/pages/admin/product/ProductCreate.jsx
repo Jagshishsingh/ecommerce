@@ -3,6 +3,7 @@ import AdminNav from "../../../components/nav/AdminNav";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
+import { getCategories, getCategorySubs } from "../../../functions/category";
 import {ProductCreateForm} from '../../../components/forms';
 
 const initialState = {
@@ -23,7 +24,15 @@ const initialState = {
 
 const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
-
+  const [subOptions, setSubOptions] = useState([]);
+  const [showSubs, setShowSubs] = useState(false);
+  const loadCategories = () => {
+    getCategories()
+    .then((res) => setValues({...values,categories : res.data}))
+  }
+  useEffect(()=>{
+    loadCategories();
+  },[]);
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -42,10 +51,23 @@ const ProductCreate = () => {
   };
 
   const handleChange = (e) => {
-    e.key === 'Enter' && console.log(e.key);
     e.preventDefault();
     setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, " ----- ", e.target.value);
+  };
+  const handleCategoryChange = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    setValues({...values,subs:[],category:e.target.value})
+    getCategorySubs(e.target.value)
+    .then((subs) =>{
+      console.log(subs);
+      setSubOptions(subs.data);
+      setShowSubs(true);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
 
   return (
@@ -54,7 +76,11 @@ const ProductCreate = () => {
         <div className="col-md-2">
           <AdminNav />
         </div>
-            <ProductCreateForm handleChange = {handleChange} handleSubmit={handleSubmit} values={values}/>
+        
+            <ProductCreateForm handleChange = {handleChange} handleSubmit={handleSubmit} 
+            handleCategoryChange = {handleCategoryChange} showSubs = {showSubs} subOptions = {subOptions}
+            values={values}
+            setValues={setValues}/>
         </div>
     </div>
 

@@ -97,7 +97,6 @@ const SubCreate = () => {
                   (<option key={category._id} value={category._id}>{category.name}</option>))}
             </select>
           </div>
-          {category}
           <CategoryForm name={name} setName={setName} handleSubmit={handleSubmit} />
           <hr />
           <LocalSearch keyword={keyword} setKeyword={setKeyword} />

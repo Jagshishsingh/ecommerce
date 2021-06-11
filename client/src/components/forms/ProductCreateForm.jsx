@@ -1,7 +1,11 @@
 import React from 'react'
+import { Select } from "antd";
+const { Option } = Select;
 
-const ProductCreateForm = ({handleChange,handleSubmit,values}) => {
 
+const ProductCreateForm = (props) => {
+
+    const { handleChange, handleSubmit, handleCategoryChange, values, subOptions, setValues, showSubs } = props;
     const {
         title,
         description,
@@ -16,7 +20,7 @@ const ProductCreateForm = ({handleChange,handleSubmit,values}) => {
         brands,
         color,
         brand,
-      } = values;
+    } = values;
 
     return (
         <div className="col-md-10">
@@ -112,6 +116,38 @@ const ProductCreateForm = ({handleChange,handleSubmit,values}) => {
                         ))}
                     </select>
                 </div>
+
+                <div className="form-group">
+                    <label>Category</label>
+                    <select name="category" className="form-control" onChange={handleCategoryChange}>
+                        <option value="">Select One</option>
+                        {categories.length > 0 &&
+                            categories.map((category) =>
+                                (<option key={category._id} value={category._id}>{category.name}</option>))}
+                    </select>
+                </div>
+
+                {showSubs && (
+                    <div>
+                        <label>Sub Categories</label>
+                        <Select
+                            mode="multiple"
+                            style={{ width: "100%" }}
+                            placeholder="Please select"
+                            value={subs}
+                            onChange={(value) => setValues({ ...values, subs: value })}
+                        >
+                            {subOptions.length &&
+                                subOptions.map((s) => (
+                                    <Option key={s._id} value={s._id}>
+                                        {s.name}
+                                    </Option>
+                                ))}
+                        </Select>
+                    </div>
+                )}
+
+                <br />
 
                 <button className="btn btn-outline-info">Save</button>
             </form>
