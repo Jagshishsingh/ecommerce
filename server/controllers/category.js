@@ -49,6 +49,7 @@ exports.getSubs = async (req,res) => {
 
   Sub.find({parent:req.params._id}).exec((err,data) => {
     if (err) console.log(err);
+    console.log(data);
     res.json(data);
   })
 }

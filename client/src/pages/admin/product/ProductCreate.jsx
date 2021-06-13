@@ -55,14 +55,14 @@ const ProductCreate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
     // console.log(e.target.name, " ----- ", e.target.value);
   };
-  const handleCategoryChange = (e) => {
+  const handleCategoryChange = async (e) => {
     e.preventDefault();
     console.log(e.target.value);
     setValues({...values,subs:[],category:e.target.value})
     getCategorySubs(e.target.value)
-    .then((subs) =>{
-      console.log(subs);
-      setSubOptions(subs.data);
+    .then((res) =>{
+      console.log(res);
+      setSubOptions(res.data);
       setShowSubs(true);
     })
     .catch((err)=>{
