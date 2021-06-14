@@ -23,10 +23,6 @@ const ProductCreateForm = (props) => {
     } = values;
 
     return (
-        <div className="col-md-10">
-            <h4>Product create</h4>
-            <hr />
-
             <form onSubmit={handleSubmit} onKeyPress={(e) => { e.key === "Enter" && e.preventDefault() }}>
                 <div className="form-group">
                     <label>Title</label>
@@ -151,8 +147,6 @@ const ProductCreateForm = (props) => {
 
                 <button className="btn btn-outline-info">Save</button>
             </form>
-        </div>
-
     )
 }
 

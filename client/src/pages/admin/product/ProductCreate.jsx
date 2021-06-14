@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { createProduct } from "../../../functions/product";
 import { getCategories, getCategorySubs } from "../../../functions/category";
-import {ProductCreateForm} from '../../../components/forms';
+import { ProductCreateForm, FileUpload } from '../../../components/forms';
+import { LoadingOutlined } from "@ant-design/icons";
 
 const initialState = {
   title: "",
@@ -26,13 +27,14 @@ const ProductCreate = () => {
   const [values, setValues] = useState(initialState);
   const [subOptions, setSubOptions] = useState([]);
   const [showSubs, setShowSubs] = useState(false);
+  const [loading, setLoading] = useState(false);
   const loadCategories = () => {
     getCategories()
-    .then((res) => setValues({...values,categories : res.data}))
+      .then((res) => setValues({ ...values, categories: res.data }))
   }
-  useEffect(()=>{
+  useEffect(() => {
     loadCategories();
-  },[]);
+  }, []);
   // redux
   const { user } = useSelector((state) => ({ ...state }));
 
@@ -58,16 +60,16 @@ const ProductCreate = () => {
   const handleCategoryChange = async (e) => {
     e.preventDefault();
     console.log(e.target.value);
-    setValues({...values,subs:[],category:e.target.value})
+    setValues({ ...values, subs: [], category: e.target.value })
     getCategorySubs(e.target.value)
-    .then((res) =>{
-      console.log(res);
-      setSubOptions(res.data);
-      setShowSubs(true);
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+      .then((res) => {
+        console.log(res);
+        setSubOptions(res.data);
+        setShowSubs(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   };
 
   return (
@@ -76,12 +78,29 @@ const ProductCreate = () => {
         <div className="col-md-2">
           <AdminNav />
         </div>
-        
-            <ProductCreateForm handleChange = {handleChange} handleSubmit={handleSubmit} 
-            handleCategoryChange = {handleCategoryChange} showSubs = {showSubs} subOptions = {subOptions}
+        <div className="col-md-10">
+          {loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h4>Product create</h4>
+          )}
+          <hr />
+
+          {JSON.stringify(values.images)}
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
+          {/* <FileUpload/> */}
+          <ProductCreateForm handleChange={handleChange} handleSubmit={handleSubmit}
+            handleCategoryChange={handleCategoryChange} showSubs={showSubs} subOptions={subOptions}
             values={values}
-            setValues={setValues}/>
+            setValues={setValues} />
         </div>
+      </div>
     </div>
 
   );
