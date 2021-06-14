@@ -11,7 +11,7 @@ import { currentUser } from './functions/auth';
 import UserRoute from './components/routes/UserRoute';
 import AdminRoute from './components/routes/AdminRoute';
 import {History,Wishlist,Password} from './pages/user';
-import {AdminDashboard,CategoryCreate,CategoryUpdate,SubCreate, SubUpdate,ProductCreate} from './pages/admin';
+import {AdminDashboard,CategoryCreate,CategoryUpdate,SubCreate, SubUpdate,ProductCreate,AllProducts} from './pages/admin';
 
 
 
@@ -27,7 +27,6 @@ function App() {
         // /current-user
         currentUser(idTokenResult.token)
         .then(res=>{
-            console.log(res);
             dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
@@ -65,6 +64,7 @@ function App() {
         <AdminRoute exact path="/admin/sub" component={SubCreate} />
         <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
+        <AdminRoute exact path="/admin/products" component={AllProducts} />
       </Switch>
     </>
   );
