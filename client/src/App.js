@@ -11,7 +11,10 @@ import { currentUser } from './functions/auth';
 import UserRoute from './components/routes/UserRoute';
 import AdminRoute from './components/routes/AdminRoute';
 import {History,Wishlist,Password} from './pages/user';
-import {AdminDashboard,CategoryCreate,CategoryUpdate,SubCreate, SubUpdate,ProductCreate,AllProducts} from './pages/admin';
+import {AdminDashboard,CategoryCreate,CategoryUpdate,
+  SubCreate, SubUpdate,ProductCreate,AllProducts,
+  ProductUpdate
+  } from './pages/admin';
 
 
 
@@ -65,6 +68,7 @@ function App() {
         <AdminRoute exact path="/admin/sub/:slug" component={SubUpdate} />
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={AllProducts} />
+        <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
       </Switch>
     </>
   );
