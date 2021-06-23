@@ -4,7 +4,7 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {useDispatch} from 'react-redux';
 
-import { Home, Login, Register,RegisterComplete,ForgotPassword } from './pages';
+import { Home, Login, Register,RegisterComplete,ForgotPassword,Product } from './pages';
 import Header from './components/nav/Header';
 import {auth} from './firebase';
 import { currentUser } from './functions/auth';
@@ -69,6 +69,8 @@ function App() {
         <AdminRoute exact path="/admin/product" component={ProductCreate} />
         <AdminRoute exact path="/admin/products" component={AllProducts} />
         <AdminRoute exact path="/admin/product/:slug" component={ProductUpdate} />
+
+        <Route exact path='/product/:slug' component={Product} />
       </Switch>
     </>
   );

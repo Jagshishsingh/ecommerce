@@ -3,3 +3,4 @@ export {default as Login} from './Login';
 export {default as Register} from './Register';
 export {default as RegisterComplete} from './RegisterComplete';
 export {default as ForgotPassword} from './ForgotPassword';
+export {default as Product} from './Product';
