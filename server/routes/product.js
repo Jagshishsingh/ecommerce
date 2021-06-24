@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {create, listAll, remove, read, update, list,productsCount} = require('../controllers/product');
+const {create, listAll, remove, read, update, list,productsCount, productStar} = require('../controllers/product');
 const { authCheck, adminCheck } = require('../middlewares/auth');
 
 router.post('/product',authCheck,adminCheck,create);

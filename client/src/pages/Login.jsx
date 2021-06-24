@@ -9,21 +9,31 @@ import { createOrUpdateUser } from '../functions/auth';
 
 const Login = ({ history }) => {
     const [email, setEmail] = useState('singhjagshish0001@gmail.com');
-    const [password, setPassword] = useState('1234567');
+    const [password, setPassword] = useState('12345678');
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { user } = useSelector((state) => ({ ...state }));
 
     useEffect(() => {
-        (user && user.token) && history.push('/');
-    }, [user])
+        let intended = history.location.state;
+        if (intended) {
+            return;
+        } else {
+            if (user && user.token) history.push("/");
+        }
+    }, [user, history])
 
     const roleBasedRedirect = (res) => {
-        if (res === 'admin') {
-            history.push('/admin/dashboard');
-        }
-        else if (res === 'subscriber') {
-            history.push('/user/history');
+        let intended = history.location.state;
+        if (intended) {
+            history.push(intended.from);
+        } else {
+            if (res === 'admin') {
+                history.push('/admin/dashboard');
+            }
+            else if (res === 'subscriber') {
+                history.push('/user/history');
+            }
         }
     }
 
