@@ -4,7 +4,13 @@ import { getCategories } from "../functions/category";
 import { useSelector, useDispatch } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
 import { Menu, Slider, Checkbox } from "antd";
-import { DollarOutlined, DownSquareOutlined } from "@ant-design/icons";
+import {
+  DollarOutlined,
+  DownSquareOutlined,
+  StarOutlined,
+} from "@ant-design/icons";
+import { Star } from "../components/forms";
+
 
 const { SubMenu, ItemGroup } = Menu;
 
@@ -16,7 +22,7 @@ const Shop = () => {
   const [ok, setOk] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryIds, setCategoryIds] = useState([]);
-
+  const [star, setStar] = useState("");
 
   let dispatch = useDispatch();
   let { search } = useSelector((state) => ({ ...state }));
@@ -57,6 +63,7 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setStar("");
     setCategoryIds([]);
     setPrice(value);
     setTimeout(() => {
@@ -84,6 +91,7 @@ const Shop = () => {
       type: "SEARCH_QUERY",
       payload: { text: "" },
     });
+    setStar("");
     setPrice([0, 0]);
     // console.log(e.target.value);
     let inTheState = [...categoryIds];
@@ -102,6 +110,27 @@ const Shop = () => {
     // console.log(inTheState);
     fetchProducts({ category: inTheState });
   };
+  const handleStarClick = (num) => {
+    // console.log(num);
+    dispatch({
+      type: "SEARCH_QUERY",
+      payload: { text: "" },
+    });
+    setPrice([0, 0]);
+    setCategoryIds([]);
+    setStar(num);
+    fetchProducts({ stars: num });
+  };
+
+  const showStars = () => (
+    <div className="pr-4 pl-4 pb-2">
+      <Star starClick={handleStarClick} numberOfStars={5} />
+      <Star starClick={handleStarClick} numberOfStars={4} />
+      <Star starClick={handleStarClick} numberOfStars={3} />
+      <Star starClick={handleStarClick} numberOfStars={2} />
+      <Star starClick={handleStarClick} numberOfStars={1} />
+    </div>
+  );
 
 
   return (
@@ -131,7 +160,7 @@ const Shop = () => {
                 />
               </div>
             </SubMenu>
-            
+              {/*categories*/}
             <SubMenu
               key="2"
               title={
@@ -141,6 +170,17 @@ const Shop = () => {
               }
             >
               <div style={{ maringTop: "-10px" }}>{showCategories()}</div>
+            </SubMenu>
+            {/* stars */}
+            <SubMenu
+              key="3"
+              title={
+                <span className="h6">
+                  <StarOutlined /> Rating
+                </span>
+              }
+            >
+              <div style={{ maringTop: "-10px" }}>{showStars()}</div>
             </SubMenu>
           </Menu>
         </div>
