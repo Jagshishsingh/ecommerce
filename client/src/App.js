@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 
-import { Home, Login, Register, RegisterComplete, ForgotPassword, Product, Shop } from './pages';
+import { Home, Login, Register, RegisterComplete, ForgotPassword, Product, Shop, Cart } from './pages';
 import Header from './components/nav/Header';
 import { auth } from './firebase';
 import { currentUser } from './functions/auth';
@@ -78,6 +78,7 @@ function App() {
         <Route exact path="/category/:slug" component={CategoryHome} />
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/shop" component={Shop} />
+        <Route exact path="/cart" component={Cart} />
       </Switch>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { Menu } from 'antd';
-import { HomeOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined, } from '@ant-design/icons';
+import { Menu, Badge } from 'antd';
+import { HomeOutlined, UserOutlined, UserAddOutlined, ShoppingOutlined, ShoppingCartOutlined, } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -15,7 +15,7 @@ const Header = () => {
     const [current, setCurrent] = useState('home')
     const history = useHistory();
     const dispatch = useDispatch();
-    const user = useSelector((state) => { return state.user });
+    const { user, cart } = useSelector((state) => ({ ...state }));
     const handleClick = (e) => {
         setCurrent(e.key);
     }
@@ -35,6 +35,14 @@ const Header = () => {
 
             <Item key="shop" icon={<ShoppingOutlined />}>
                 <Link to="/shop">Shop</Link>
+            </Item>
+
+            <Item key="cart" icon={<ShoppingCartOutlined />}>
+                <Link to="/cart">
+                    <Badge count={cart.length} offset={[9, 0]}>
+                        Cart
+                    </Badge>
+                </Link>
             </Item>
 
             {!user && (<Item key="register" icon={<UserAddOutlined />} className="float-right">
