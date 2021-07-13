@@ -6,3 +6,4 @@ export {default as AllProducts} from './product/AllProducts';
 export {default as ProductUpdate} from './product/ProductUpdate';
 export {default as SubCreate}  from './sub/SubCreate';
 export {default as SubUpdate}  from './sub/SubUpdate';
+export {default as CreateCouponPage}  from './coupon/CreateCouponPage';
