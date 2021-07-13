@@ -5,7 +5,7 @@ import { getUserCart, emptyUserCart, saveUserAddress, applyCoupon } from "../fun
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const Checkout = () => {
+const Checkout = ({history}) => {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState("");
@@ -40,6 +40,9 @@ const Checkout = () => {
     emptyUserCart(user.token).then((res) => {
       setProducts([]);
       setTotal(0);
+      setTotalAfterDiscount(0);
+      setCoupon("");
+      setDiscountError("");
       toast.success("Cart is emapty. Contniue shopping.");
     });
   };
@@ -61,11 +64,19 @@ const Checkout = () => {
       if (res.data) {
         setTotalAfterDiscount(res.data);
         // update redux coupon applied
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: true,
+        });
       }
       // error
       if (res.data.err) {
         setDiscountError(res.data.err);
         // update redux coupon applied
+        dispatch({
+          type: "COUPON_APPLIED",
+          payload: false,
+        });
       }
     });
   };
@@ -141,6 +152,7 @@ const Checkout = () => {
           <div className="col-md-6">
             <button className="btn btn-primary"
               disabled={!addressSaved || !products.length}
+              onClick={() => history.push("/payment")}
             >Place Order</button>
           </div>
 

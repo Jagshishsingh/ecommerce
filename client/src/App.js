@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import SideDrawer from "./components/drawer/SideDrawer";
 
-import { Home, Login, Register, RegisterComplete, ForgotPassword, Product, Shop, Cart, Checkout } from './pages';
+import { Home, Login, Register, RegisterComplete, ForgotPassword, Product, Shop, Cart, Checkout, Payment } from './pages';
 import Header from './components/nav/Header';
 import { auth } from './firebase';
 import { currentUser } from './functions/auth';
@@ -84,7 +84,8 @@ function App() {
         <Route exact path="/sub/:slug" component={SubHome} />
         <Route exact path="/shop" component={Shop} />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={Checkout} />
+        <UserRoute exact path="/checkout" component={Checkout} />
+        <UserRoute exact path="/payment" component={Payment} />
       </Switch>
     </>
   );
