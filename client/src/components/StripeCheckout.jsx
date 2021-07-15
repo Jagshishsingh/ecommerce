@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useSelector, useDispatch } from "react-redux";
 import { createPaymentIntent } from "../functions/stripe";
+import { createOrder, emptyUserCart } from "../functions/user";
+
 import { Link } from "react-router-dom";
 import { Card } from "antd";
 import { DollarOutlined, CheckOutlined, SwapOutlined } from "@ant-design/icons";
@@ -25,7 +27,7 @@ const StripeCheckout = ({ history }) => {
     const elements = useElements();
 
     useEffect(() => {
-        createPaymentIntent(user.token,coupon).then((res) => {
+        createPaymentIntent(user.token, coupon).then((res) => {
             console.log("create payment intent", res.data);
             setClientSecret(res.data.clientSecret);
 
@@ -55,6 +57,24 @@ const StripeCheckout = ({ history }) => {
             // here you get result after successful payment
             // create order and save in database for admin to process
             // empty user cart from redux store and local storage
+            createOrder(payload, user.token).then((res) => {
+                if (res.data.ok) {
+                    // empty cart from local storage
+                    if (typeof window !== "undefined") localStorage.removeItem("cart");
+                    // empty cart from redux
+                    dispatch({
+                        type: "ADD_TO_CART",
+                        payload: [],
+                    });
+                    // reset coupon to false
+                    dispatch({
+                        type: "COUPON_APPLIED",
+                        payload: false,
+                    });
+                    // empty cart from database
+                    emptyUserCart(user.token);
+                }
+            });
             console.log(JSON.stringify(payload, null, 4));
             setError(null);
             setProcessing(false);
