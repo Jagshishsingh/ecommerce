@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { auth } from '../firebase';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import {useSelector} from 'react-redux';
 
-const ForgotPassword = ({history}) => {
+import { auth } from '../firebase';
+
+const ForgotPassword = ({ history }) => {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const {user} = useSelector((state) => ({...state}));
+    const { user } = useSelector((state) => ({ ...state }));
 
     useEffect(() => {
-        (user && user.token) && history.push('/');   
+        (user && user.token) && history.push('/');
     }, [user])
 
     const handleSubmit = async (e) => {
@@ -20,29 +23,34 @@ const ForgotPassword = ({history}) => {
             handleCodeInApp: true
         }
         await auth.sendPasswordResetEmail(email, config)
-        .then(()=>{
-            setEmail('');
-            setLoading(false);
-            toast.success('Check your email for password reset link');
-        }).catch((error)=>{
-            setLoading(false);
-            toast.error(error.message);
-            console.log(error);
-        })
-        
+            .then(() => {
+                setEmail('');
+                setLoading(false);
+                toast.success('Check your email for password reset link');
+            }).catch((error) => {
+                setLoading(false);
+                toast.error(error.message);
+                console.log(error);
+            })
+
     }
 
     return (
-        <div className="container p-5">
-            <div className="offset-md-3 col-md-6">
-            {loading?(<h1>Loading...</h1>):(<h1>Forgot Password</h1>)}
-                <form onSubmit={handleSubmit}>
-                    <input type="email" className="form-control" placeholder="email"
-                        value={email} onChange={e => setEmail(e.target.value)} autoFocus />
-                    <button type="submit" className="btn btn-raised" disabled={!email}> Send email</button>
-                </form>
-            </div>
 
+        <div className="container p-5 d-flex justify-content-center">
+            <Col sm={24} lg={16}>
+                <div className="">
+                    {loading ? (<h1><LoadingOutlined spin /></h1>) : (<h1>Forgot Password</h1>)}
+                    <form onSubmit={handleSubmit}>
+                        <input type="email" className="form-control mb-3" style={{ fontSize: "20px" }}
+                            value={email} onChange={e => setEmail(e.target.value)} autoFocus />
+                        <Button
+                            shape="round" size="large" type="primary" disabled={!email || loading}
+                            block onClick={handleSubmit}>Send Email</Button>
+                    </form>
+                </div>
+
+            </Col>
         </div>
     )
 }
