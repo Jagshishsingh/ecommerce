@@ -113,7 +113,7 @@ const StripeCheckout = ({ history }) => {
             {!succeeded && (
                 <div>
                     {coupon && totalAfterDiscount !== undefined ? (
-                        <p className="alert alert-success">{`Total after discount: $${totalAfterDiscount}`}</p>
+                        <p className="alert alert-success">Total after discount: &#8377;{`${totalAfterDiscount}`}</p>
                     ) : (
                         <p className="alert alert-danger">No coupon applied</p>
                     )}
@@ -133,17 +133,20 @@ const StripeCheckout = ({ history }) => {
                     }
                     actions={[
                         <>
-                            <DollarOutlined className="text-info" /> <br /> Total: $
+                            <DollarOutlined className="text-info" /> <br /> Total: &#8377;
                             {cartTotal}
                         </>,
                         <>
-                            <CheckOutlined className="text-info" /> <br /> Total payable : $
+                            <CheckOutlined className="text-info" /> <br /> Total payable : &#8377;
                             {(payable / 100).toFixed(2)}
                         </>,
                     ]}
                 />
             </div>
             <form id="payment-form" className="stripe-form" onSubmit={handleSubmit}>
+                <p className="bg-danger p-1">
+                    NOT ACTUAL TRANSACTION : USE CARD NO. : "4242 4242 4242 4242"
+                </p>
                 <CardElement
                     id="card-element"
                     options={cartStyle}

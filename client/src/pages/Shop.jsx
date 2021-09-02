@@ -28,18 +28,15 @@ const Shop = () => {
   const [sub, setSub] = useState("");
   const [brands, setBrands] = useState([
     "Apple",
-    "Samsung",
+    "HP",
     "Microsoft",
-    "Lenovo",
-    "ASUS",
   ]);
   const [brand, setBrand] = useState("");
   const [colors, setColors] = useState([
     "Black",
-    "Brown",
     "Silver",
     "White",
-    "Blue",
+    "Grey",
   ]);
   const [color, setColor] = useState("");
   const [shipping, setShipping] = useState("");
@@ -77,7 +74,7 @@ const Shop = () => {
     });
   };
   useEffect(() => {
-    console.log("ok to request");
+    // console.log("ok to request");
     fetchProducts({ price });
   }, [ok]);
 
@@ -312,7 +309,7 @@ const Shop = () => {
               <div>
                 <Slider
                   className="ml-4 mr-4"
-                  tipFormatter={(v) => `$${v}`}
+                  tipFormatter={(v) => `INR ${v}`}
                   range
                   value={price}
                   onChange={handleSlider}

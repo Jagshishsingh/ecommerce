@@ -173,7 +173,7 @@ const Checkout = ({ history }) => {
         <p>Cart Total: {total}</p>
         {totalAfterDiscount > 0 && (
           <p className="bg-success p-2">
-            Discount Applied: Total Payable: ${totalAfterDiscount}
+            Discount Applied: Total Payable: &#8377; {totalAfterDiscount}
           </p>
         )}
 

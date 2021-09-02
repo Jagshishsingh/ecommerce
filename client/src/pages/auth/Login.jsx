@@ -9,8 +9,8 @@ import { auth, googleAuthProvider } from '../../firebase';
 import { createOrUpdateUser } from '../../functions/auth';
 
 const Login = ({ history }) => {
-    const [email, setEmail] = useState('singhjagshish0001@gmail.com');
-    const [password, setPassword] = useState('12345678');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [loadingError, setLoadingError] = useState(false);
     const dispatch = useDispatch();
